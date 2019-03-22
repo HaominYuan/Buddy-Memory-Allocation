@@ -87,7 +87,7 @@ int buddy_alloc(struct buddy *self, int size) {
 		return offset;
 }
 
-void budy_free(struct buddy *self, int offset) {
+void buddy_free(struct buddy *self, int offset) {
 	unsigned node_size, index = 0;
 	unsigned left_longest, right_longest;
 
