@@ -71,7 +71,7 @@ int buddy_alloc(struct buddy *self, int size) {
 	char node_size;
 	int lg_size;
 
-	if (self == NULL || size == 0) {
+	if (self == NULL || size < 1) {
 		return -1;
 	}
 
