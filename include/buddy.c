@@ -80,7 +80,7 @@ int buddy_alloc(struct buddy *self, int size) {
 	self->longest[index] = 0;
 	offset = (index + 1) * node_size - self->size;
 
-	while (index == 0) {
+	while (index != 0) {
 		index = PARENT(index);
 		self->longest[index] = MAX(self->longest[LEFT_LEAF(index)], self->longest[RIGHT_LEAF(index)]);
 	}
