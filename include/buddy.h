@@ -1,5 +1,9 @@
-#ifndef BUDDY_BUDDY_H
-#define BUDDY_BUDDY_H
+#ifndef __BUDDY_H__
+#define __BUDDY_H__
+
+#include <stdlib.h>
+#include <assert.h>
+#include <string.h>
 
 struct buddy;
 struct buddy *buddy_new(int size);

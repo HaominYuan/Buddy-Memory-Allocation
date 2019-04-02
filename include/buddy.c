@@ -1,8 +1,4 @@
 #include "buddy.h"
-#include <stdlib.h>
-#include <assert.h>
-#include <string.h>
-
 struct buddy {
 	char size;
 	char longest[1];
@@ -15,7 +11,7 @@ struct buddy {
 #define IS_POWER_OF_2(x) (!((x) & ((x) - 1)))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
-unsigned fix_size(unsigned size) {
+static unsigned fix_size(unsigned size) {
 	size |= size >> 1;
 	size |= size >> 2;
 	size |= size >> 4;
