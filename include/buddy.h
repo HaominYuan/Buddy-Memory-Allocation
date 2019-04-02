@@ -5,12 +5,17 @@
 #include <assert.h>
 #include <string.h>
 
-struct buddy;
-struct buddy *buddy_new(int size);
-void buddy_destory(struct buddy *self);
+struct Buddy_t {
+	char size;
+	char longest[1];
+};
+typedef struct Buddy_t Buddy;
 
-int buddy_alloc(struct buddy *self, int size);
-void buddy_free(struct buddy *self, int offset);
+Buddy *buddy_new(int size);
+void buddy_destroy(Buddy *self);
 
-int buddy_size(struct buddy *self, int offset);
+int buddy_alloc(Buddy *self, int size);
+void buddy_free(Buddy *self, int offset);
+
+int buddy_size(Buddy *self, int offset);
 #endif

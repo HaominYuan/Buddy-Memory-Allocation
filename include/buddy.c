@@ -1,8 +1,4 @@
 #include "buddy.h"
-struct buddy {
-	char size;
-	char longest[1];
-};
 
 #define LEFT_LEAF(index) ((index) * 2 + 1)
 #define RIGHT_LEAF(index) ((index) * 2 + 2)
@@ -35,15 +31,15 @@ static char convert(int size) {
 	return (char) left;
 }
 
-struct buddy *buddy_new(int size) {
-	struct buddy *self;
+Buddy *buddy_new(int size) {
+	Buddy *self;
 	int node_size, i;
 	
 	if (size < 1 || !IS_POWER_OF_2(size)) {
 		return NULL;
 	}
 
-	self = (struct buddy *) malloc(2 * size * sizeof(char));
+	self = (Buddy *) malloc(2 * size * sizeof(char));
 
 	self->size = convert(size);
 	node_size = self->size + 1;
@@ -57,12 +53,12 @@ struct buddy *buddy_new(int size) {
 	return self;
 }
 
-void buddy_destory(struct buddy *self) {
+void buddy_destroy(Buddy *self) {
 	free(self);
 }
 
 
-int buddy_alloc(struct buddy *self, int size) {
+int buddy_alloc(Buddy *self, int size) {
 	unsigned index = 0, offset = 0;
 	char node_size;
 	int lg_size;
@@ -98,7 +94,7 @@ int buddy_alloc(struct buddy *self, int size) {
 		return offset;
 }
 
-void buddy_free(struct buddy *self, int offset) {
+void buddy_free(Buddy *self, int offset) {
 	int node_size, index;
 	char left_longest, right_longest;
 
@@ -130,11 +126,11 @@ void buddy_free(struct buddy *self, int offset) {
 	}
 }
 
-int buddy_size(struct buddy *self, int offset) {
+int buddy_size(Buddy *self, int offset) {
 	unsigned node_size, index = 0;
-	assert(self && offset >= 0 && offset < self->size);
+	assert(self && offset >= 0 && offset < self->size && self->longest[0] != self->size);
 
-	node_size = 1;
+	node_size = 0;
 	for (index = (1 << self->size) - 1; self->longest[index] != -1; index = PARENT(index)) {
 		node_size = node_size + 1;
 	}

@@ -2,6 +2,7 @@
 #define __RWLOCK_H__
 
 #include <semaphore.h>
+#include <stdlib.h>
 
 struct RWLock_t {
 	sem_t lock;
@@ -10,11 +11,13 @@ struct RWLock_t {
 };
 typedef struct RWLock_t RWLock;
 
-void rwlock_init(RWLock *rw);
+RWLock *rwlock_new(void);
+void rwlock_destroy(RWLock *rw);
 
 void rwlock_acquire_readlock(RWLock *rw);
 void rwlock_release_readlock(RWLock *rw);
 
 void rwlock_acquire_writelock(RWLock *rw);
 void rwlock_release_writelock(RWLock *rw);
+
 #endif

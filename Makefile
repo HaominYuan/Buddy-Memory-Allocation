@@ -1,11 +1,8 @@
 INCS = ./include
 CFLAGS = -Wall
 
-main : main.c ./include/buddy.c
+main : main.c ./include/*.c
 	gcc $^ -o $@ -I $(INCS) $(CFLAGS)
-
-rwlock_test : rwlock_test.c ./include/rwlock.c
-	gcc $^ -o $@ -I $(INCS) $(CFLAGS)
-
+	
 clean :
-	rm -rf rwlock_test main
+	rm -rf main
