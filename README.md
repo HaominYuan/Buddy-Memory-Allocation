@@ -5,3 +5,5 @@
 
 [思路](https://github.com/HaominYuan/Buddy-Memory-Allocation/blob/master/docs/%E6%80%9D%E8%B7%AF.md)
 
+[读写锁](https://github.com/HaominYuan/Buddy-Memory-Allocation/blob/master/docs/%E8%AF%BB%E5%86%99%E9%94%81.md)
+
