@@ -11,7 +11,7 @@ struct SBuddy_t {
 typedef struct SBuddy_t SBuddy;
 
 SBuddy *sbuddy_new(int size);
-void sbuddy_destory(SBuddy *self);
+void sbuddy_destroy(SBuddy *self);
 
 int sbuddy_alloc(SBuddy *self, int size);
 void sbuddy_free(SBuddy *self, int offset);
