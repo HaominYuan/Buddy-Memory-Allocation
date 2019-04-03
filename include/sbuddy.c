@@ -9,7 +9,7 @@ SBuddy *sbuddy_new(int size) {
 }
 
 void sbuddy_destroy(SBuddy *self) {
-	buddy_destroy(self->buddy);
+	buddy_destroy(&self->buddy);
 	rwlock_destroy(self->rw);
 	free(self);
 }

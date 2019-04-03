@@ -1,21 +1,13 @@
 #ifndef __BUDDY_H__
 #define __BUDDY_H__
 
-#include <stdlib.h>
-#include <assert.h>
-#include <string.h>
+#define T Buddy_T
+typedef struct T *T;
 
-struct Buddy_t {
-	char size;
-	char longest[1];
-};
-typedef struct Buddy_t Buddy;
-
-Buddy *buddy_new(int size);
-void buddy_destroy(Buddy *self);
-
-int buddy_alloc(Buddy *self, int size);
-void buddy_free(Buddy *self, int offset);
-
-int buddy_size(Buddy *self, int offset);
+T buddy_new(int size);
+void buddy_destroy(T *self);
+int buddy_alloc(T self, int size);
+void buddy_free(T self, int offset);
+int buddy_size(T self, int offset);
+#undef T
 #endif

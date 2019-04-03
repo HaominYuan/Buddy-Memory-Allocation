@@ -5,7 +5,7 @@
 #include "rwlock.h"
 
 struct SBuddy_t {
-	Buddy *buddy;
+	Buddy_T buddy;
 	RWLock *rw;
 };
 typedef struct SBuddy_t SBuddy;
