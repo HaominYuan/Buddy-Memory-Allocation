@@ -1,20 +1,28 @@
 #include "sbuddy.h"
 #include <stdio.h>
+#include <stdlib.h>
 
-SBuddy *sbuddy_new(int size) {
-	SBuddy *self = malloc(sizeof(SBuddy));
+#define T SBuddy_T
+struct SBuddy_T {
+	Buddy_T  buddy;
+	RWLock_T rw;
+};
+
+T sbuddy_new(int size) {
+	T self = malloc(sizeof(*self));
 	self->buddy = buddy_new(size);
 	self->rw = rwlock_new();
 	return self;
 }
 
-void sbuddy_destroy(SBuddy *self) {
-	buddy_destroy(&self->buddy);
-	rwlock_destroy(self->rw);
-	free(self);
+void sbuddy_destroy(T *self) {
+	buddy_destroy(&(*self)->buddy);
+	rwlock_destroy(&(*self)->rw);
+	free(*self);
+	*self = NULL;
 }
 
-int sbuddy_alloc(SBuddy *self, int size) {
+int sbuddy_alloc(T self, int size) {
 	int offset = 0;
 	rwlock_acquire_writelock(self->rw);
 	offset = buddy_alloc(self->buddy, size);
@@ -22,13 +30,13 @@ int sbuddy_alloc(SBuddy *self, int size) {
 	return offset;
 }
 
-void sbuddy_free(SBuddy *self, int offset) {
+void sbuddy_free(T self, int offset) {
 	rwlock_acquire_writelock(self->rw);
 	buddy_free(self->buddy, offset);
 	rwlock_release_writelock(self->rw);
 }
 
-int sbuddy_size(SBuddy *self, int offset) {
+int sbuddy_size(T self, int offset) {
 	int size;
 	rwlock_acquire_readlock(self->rw);
 	size = buddy_size(self->buddy, offset);

@@ -1,23 +1,16 @@
 #ifndef __RWLOCK_H__
 #define __RWLOCK_H__
 
-#include <semaphore.h>
-#include <stdlib.h>
+#define T RWLock_T
+typedef struct T *T;
 
-struct RWLock_t {
-	sem_t lock;
-	sem_t writelock;
-	int readers;
-};
-typedef struct RWLock_t RWLock;
+T rwlock_new(void);
+void rwlock_destroy(T *rw);
 
-RWLock *rwlock_new(void);
-void rwlock_destroy(RWLock *rw);
+void rwlock_acquire_readlock(T rw);
+void rwlock_release_readlock(T rw);
 
-void rwlock_acquire_readlock(RWLock *rw);
-void rwlock_release_readlock(RWLock *rw);
-
-void rwlock_acquire_writelock(RWLock *rw);
-void rwlock_release_writelock(RWLock *rw);
-
+void rwlock_acquire_writelock(T rw);
+void rwlock_release_writelock(T rw);
+#undef T
 #endif

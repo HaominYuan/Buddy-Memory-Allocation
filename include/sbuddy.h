@@ -4,17 +4,15 @@
 #include "buddy.h"
 #include "rwlock.h"
 
-struct SBuddy_t {
-	Buddy_T buddy;
-	RWLock *rw;
-};
-typedef struct SBuddy_t SBuddy;
+#define T SBuddy_T
+typedef struct T *T;
 
-SBuddy *sbuddy_new(int size);
-void sbuddy_destroy(SBuddy *self);
+T sbuddy_new(int size);
+void sbuddy_destroy(T *self);
 
-int sbuddy_alloc(SBuddy *self, int size);
-void sbuddy_free(SBuddy *self, int offset);
+int sbuddy_alloc(T self, int size);
+void sbuddy_free(T self, int offset);
 
-int sbuddy_size(SBuddy *self, int offset);
+int sbuddy_size(T self, int offset);
+#undef T
 #endif
